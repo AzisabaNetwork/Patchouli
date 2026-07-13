@@ -14,5 +14,8 @@
     "prettier": "3.9.5",
     "tsx": "^4.23.0",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "discord.js": "^14.26.5"
   }
 }
