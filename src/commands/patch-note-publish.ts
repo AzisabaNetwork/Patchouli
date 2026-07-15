@@ -20,7 +20,9 @@ import {
   TextInputStyle,
 } from "discord.js";
 
+import { Config } from "../config";
 import { i18n, localizePatchNoteCategory, localizePatchNoteTarget } from "../utils/i18n";
+import { notifyPublished } from "../utils/notificator";
 
 export function buildPatchNotePublishSubcommand(
   builder: SlashCommandSubcommandBuilder,
@@ -149,6 +151,7 @@ export async function receivePatchNotePublishSubcommand(interaction: ChatInputCo
 export async function receivePatchNotePublishModalSubmit(
   interaction: ModalSubmitInteraction,
   api: PatchNotesApi,
+  config: Config,
 ) {
   const target = interaction.fields.getStringSelectValues("target")[0] as PatchNoteTarget;
   const category = interaction.fields.getStringSelectValues("category")[0] as PatchNoteCategory;
@@ -176,6 +179,20 @@ export async function receivePatchNotePublishModalSubmit(
     await interaction.reply({
       content: `❌ Validation error: Only image attachments are allowed.`,
       ephemeral: true,
+    });
+    return;
+  }
+
+  const publisherRoleId = config.patchNoteTargets[target]?.publisherRoleId;
+  const memberRoles = interaction.member.roles;
+  if (
+    publisherRoleId &&
+    !(Array.isArray(memberRoles)
+      ? memberRoles.includes(publisherRoleId)
+      : memberRoles.cache.has(publisherRoleId))
+  ) {
+    await interaction.reply({
+      content: `❌ You are not allowed to publish patch notes for \`${target}\`.`,
     });
     return;
   }
@@ -243,6 +260,8 @@ export async function receivePatchNotePublishModalSubmit(
         ),
       ],
     });
+
+    await notifyPublished(interaction.client, config, patchNote);
   } catch (error) {
     console.error("Failed to create patch note:", error);
     await interaction.editReply({ content: "❌ API error" });

@@ -3,6 +3,7 @@ import { Client, Events, GatewayIntentBits } from "discord.js";
 
 import { buildPatchNoteCommand, receivePatchNoteCommand } from "./commands/patch-note";
 import { receivePatchNotePublishModalSubmit } from "./commands/patch-note-publish";
+import { loadConfig } from "./config";
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds],
@@ -21,8 +22,14 @@ async function main() {
     throw new Error("`GRAPH_API_KEY` must be set");
   }
 
+  const config = await loadConfig().catch((error) => {
+    console.error("Failed to load config");
+    throw error;
+  });
+
   const patchNotesApi = new PatchNotesApi(
     new Configuration({
+      basePath: config.basePath,
       accessToken: graphApiKey,
     }),
   );
@@ -51,7 +58,7 @@ async function main() {
     } else if (interaction.isModalSubmit()) {
       switch (interaction.customId) {
         case "patchouli:publish":
-          await receivePatchNotePublishModalSubmit(interaction, patchNotesApi);
+          await receivePatchNotePublishModalSubmit(interaction, patchNotesApi, config);
           break;
       }
     }
