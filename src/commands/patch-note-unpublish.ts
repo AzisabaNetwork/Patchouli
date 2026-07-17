@@ -32,8 +32,8 @@ export async function receivePatchNoteUnpublishSubcommand(
 
     await interaction.editReply({
       content: i18n(interaction.guildLocale, {
-        [Locale.EnglishUS]: "✅ Unpublished the patch note.",
-        [Locale.Japanese]: "✅ パッチノートを削除しました。",
+        [Locale.EnglishUS]: "✨ Unpublished the patch note.",
+        [Locale.Japanese]: "✨ パッチノートを削除しました。",
       }),
     });
   } catch (error) {

@@ -5,14 +5,11 @@ import * as process from "node:process";
 import { z } from "zod";
 
 const patchNoteTargetConfigSchema = z.object({
-  publisherRoleId: z.string().optional(),
-  notificationChannelId: z.string().optional(),
+  roleId: z.string().optional(),
+  channelId: z.string().optional(),
 });
 
-const configSchema = z.object({
-  basePath: z.string().optional(),
-  patchNoteTargets: z.record(z.string(), patchNoteTargetConfigSchema.optional()),
-});
+const configSchema = z.record(z.string(), patchNoteTargetConfigSchema.optional());
 
 export type Config = z.infer<typeof configSchema>;
 

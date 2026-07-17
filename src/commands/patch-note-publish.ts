@@ -185,7 +185,7 @@ export async function receivePatchNotePublishModalSubmit(
     return;
   }
 
-  const publisherRoleId = config.patchNoteTargets[target]?.publisherRoleId;
+  const publisherRoleId = config.patchNoteTargets[target]?.roleId;
   const memberRoles = interaction.member.roles;
   if (
     publisherRoleId &&
@@ -217,17 +217,17 @@ export async function receivePatchNotePublishModalSubmit(
       }),
     );
 
-    const player = await playersApi.listPlayers({
+    const players = await playersApi.listPlayers({
       discordId: interaction.user.id,
     });
-    const author = player.items[0]?.id ?? null;
+    const authorId = players.items[0]?.id ?? null;
 
     const patchNote = await patchNotesApi.createPatchNote({
       target,
       category,
       title,
       body,
-      authorId: author,
+      authorId,
       images,
     });
 
@@ -269,7 +269,12 @@ export async function receivePatchNotePublishModalSubmit(
       ],
     });
 
-    await notifyPublished(interaction.client, config, patchNote);
+    await notifyPublished({
+      client: interaction.client,
+      sender: interaction.user,
+      config,
+      patchNote,
+    });
   } catch (error) {
     console.error("Failed to create patch note:", error);
     await interaction.editReply({ content: "❌ API error" });

@@ -29,14 +29,12 @@ async function main() {
 
   const patchNotesApi = new PatchNotesApi(
     new Configuration({
-      basePath: config.basePath,
       accessToken: graphApiKey,
     }),
   );
 
   const playersApi = new PlayersApi(
     new Configuration({
-      basePath: config.basePath,
       accessToken: graphApiKey,
     }),
   );
