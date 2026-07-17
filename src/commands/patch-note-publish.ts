@@ -4,6 +4,7 @@ import {
   PatchNoteCategory,
   PatchNotesApi,
   PatchNoteTarget,
+  PlayersApi,
 } from "@azisaba/graph";
 import {
   ChatInputCommandInteraction,
@@ -150,7 +151,8 @@ export async function receivePatchNotePublishSubcommand(interaction: ChatInputCo
 
 export async function receivePatchNotePublishModalSubmit(
   interaction: ModalSubmitInteraction,
-  api: PatchNotesApi,
+  patchNotesApi: PatchNotesApi,
+  playersApi: PlayersApi,
   config: Config,
 ) {
   const target = interaction.fields.getStringSelectValues("target")[0] as PatchNoteTarget;
@@ -215,11 +217,17 @@ export async function receivePatchNotePublishModalSubmit(
       }),
     );
 
-    const patchNote = await api.createPatchNote({
+    const player = await playersApi.listPlayers({
+      discordId: interaction.user.id,
+    });
+    const author = player.items[0]?.id ?? null;
+
+    const patchNote = await patchNotesApi.createPatchNote({
       target,
       category,
       title,
       body,
+      authorId: author,
       images,
     });
 

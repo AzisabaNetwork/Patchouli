@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@azisaba/graph':
-        specifier: 0.1.0-rc.2
-        version: 0.1.0-rc.2
+        specifier: 0.1.0-rc.3
+        version: 0.1.0-rc.3
       discord.js:
         specifier: ^14.26.5
         version: 14.26.5
@@ -36,8 +36,8 @@ importers:
 
 packages:
 
-  '@azisaba/graph@0.1.0-rc.2':
-    resolution: {integrity: sha512-JwKg1vvEKg7jVYxaEXoTxLtwvi4gy3obeHgyzH/f7xKlOmvcMQtT2uRAJPf6NYF6R4r68LZJh+YzjWSUnHTmFg==}
+  '@azisaba/graph@0.1.0-rc.3':
+    resolution: {integrity: sha512-sU1Ccfl/vMVYvY1OvFVVP4P2J56gQUA5LBF6VSNp2vSOcFBzP7m1VVQlDhW2jSDdSfT52oQPr1ABnJQXNwbIJg==}
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -557,7 +557,7 @@ packages:
 
 snapshots:
 
-  '@azisaba/graph@0.1.0-rc.2': {}
+  '@azisaba/graph@0.1.0-rc.3': {}
 
   '@babel/code-frame@7.29.7':
     dependencies:

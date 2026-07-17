@@ -1,15 +1,95 @@
-import { Configuration, PatchNotesApi } from "@azisaba/graph";
+import { Configuration, PatchNotesApi, PlayersApi } from "@azisaba/graph";
 import { Client, Events, GatewayIntentBits } from "discord.js";
+
+
 
 import { buildPatchNoteCommand, receivePatchNoteCommand } from "./commands/patch-note";
 import { receivePatchNotePublishModalSubmit } from "./commands/patch-note-publish";
 import { loadConfig } from "./config";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds],
 });
 
 async function main() {
+  if (1 === 1) {
+    const api = new PlayersApi(
+      new Configuration({
+        accessToken: process.env.GRAPH_API_KEY,
+      }),
+    );
+
+    const response = await api.getPlayerById({
+      playerId: "00e51a4d-d30d-4d88-9c75-0a7409ba75b3",
+    });
+
+    console.log(response);
+    return;
+  }
+
   console.log("Starting...");
 
   const token = process.env.BOT_TOKEN;
@@ -28,6 +108,13 @@ async function main() {
   });
 
   const patchNotesApi = new PatchNotesApi(
+    new Configuration({
+      basePath: config.basePath,
+      accessToken: graphApiKey,
+    }),
+  );
+
+  const playersApi = new PlayersApi(
     new Configuration({
       basePath: config.basePath,
       accessToken: graphApiKey,
@@ -58,7 +145,7 @@ async function main() {
     } else if (interaction.isModalSubmit()) {
       switch (interaction.customId) {
         case "patchouli:publish":
-          await receivePatchNotePublishModalSubmit(interaction, patchNotesApi, config);
+          await receivePatchNotePublishModalSubmit(interaction, patchNotesApi, playersApi, config);
           break;
       }
     }
