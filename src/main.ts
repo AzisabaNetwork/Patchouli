@@ -10,21 +10,6 @@ const client = new Client({
 });
 
 async function main() {
-  if (1 === 1) {
-    const api = new PlayersApi(
-      new Configuration({
-        accessToken: process.env.GRAPH_API_KEY,
-      }),
-    );
-
-    const response = await api.getPlayerById({
-      playerId: "00e51a4d-d30d-4d88-9c75-0a7409ba75b3",
-    });
-
-    console.log(response);
-    return;
-  }
-
   console.log("Starting...");
 
   const token = process.env.BOT_TOKEN;
