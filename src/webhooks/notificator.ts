@@ -21,7 +21,7 @@ export async function notify({
 
   await webhook.send({
     content: `# ${emoji} ${patchNote.title}
-    https://www.azisaba.net/patch-note/${patchNote.id}
+    https://www.azisaba.net/patch-notes/${patchNote.id}
     `,
     ...(author && {
       username: author.displayName,
