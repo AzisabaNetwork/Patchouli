@@ -65,7 +65,7 @@ async function main() {
     if (interaction.isChatInputCommand()) {
       switch (interaction.commandName) {
         case "patch-note":
-          await receivePatchNoteCommand(interaction, patchNotesApi);
+          await receivePatchNoteCommand({ interaction, patchNotesApi, config });
           break;
       }
     } else if (interaction.isModalSubmit()) {
