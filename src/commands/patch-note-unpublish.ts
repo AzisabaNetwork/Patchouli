@@ -40,6 +40,7 @@ export async function receivePatchNoteUnpublishSubcommand({
       await interaction.editReply({
         content: "❌ このサーバーのパッチノートを削除する権限がありません",
       });
+      return;
     }
 
     await interaction.editReply({
