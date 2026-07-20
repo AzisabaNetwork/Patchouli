@@ -7,6 +7,7 @@ const categoryEmoji = {
   [PatchNoteCategory.Feature]: "✨",
   [PatchNoteCategory.Fix]: "🐛",
   [PatchNoteCategory.Improvement]: "📈",
+  [PatchNoteCategory.Map]: "🗺️",
   [PatchNoteCategory.Remove]: "✂️",
 } satisfies Record<PatchNoteCategory, string>;
 

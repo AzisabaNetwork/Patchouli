@@ -39,6 +39,7 @@ const patchNoteCategoryNames = {
   [PatchNoteCategory.Feature]: "✨ 新機能",
   [PatchNoteCategory.Fix]: "🐛 バグ修正",
   [PatchNoteCategory.Improvement]: "📈 改善",
+  [PatchNoteCategory.Map]: "🗺️ マップ",
   [PatchNoteCategory.Remove]: "✂️ 削除",
 } satisfies Record<PatchNoteCategory, string>;
 
@@ -148,7 +149,10 @@ export async function receivePatchNotePublishModalSubmit({
     return;
   }
 
-  if (!checkRole({ config, guildMember: interaction.member, patchNoteTarget: target })) {
+  if (
+    interaction.member &&
+    !checkRole({ config, guildMember: interaction.member, patchNoteTarget: target })
+  ) {
     await interaction.reply({
       content: `❌ このサーバーのパッチノートを作成する権限がありません。`,
     });

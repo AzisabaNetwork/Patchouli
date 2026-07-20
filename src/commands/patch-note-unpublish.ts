@@ -31,11 +31,8 @@ export async function receivePatchNoteUnpublishSubcommand({
     const patchNote = await patchNotesApi.getPatchNoteById({ patchNoteId });
 
     if (
-      !checkRole({
-        config,
-        guildMember: interaction.member,
-        patchNoteTarget: patchNote.target,
-      })
+      interaction.member &&
+      !checkRole({ config, guildMember: interaction.member, patchNoteTarget: patchNote.target })
     ) {
       await interaction.editReply({
         content: "❌ このサーバーのパッチノートを削除する権限がありません",
