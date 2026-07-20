@@ -10,6 +10,7 @@ const client = new Client({
 });
 
 const webhookClients = {
+  [PatchNoteTarget.General]: createWebhookClient(process.env.GENERAL_WEBHOOK_URL),
   [PatchNoteTarget.CreativePro]: createWebhookClient(process.env.CREATIVE_PRO_WEBHOOK_URL),
   [PatchNoteTarget.Frontier]: createWebhookClient(process.env.FRONTIER_WEBHOOK_URL),
   [PatchNoteTarget.Life]: createWebhookClient(process.env.LIFE_WEBHOOK_URL),
