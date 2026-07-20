@@ -25,6 +25,7 @@ import { checkRole, Config } from "../config";
 import { notify } from "../webhooks/notificator";
 
 const patchNoteTargetNames = {
+  [PatchNoteTarget.General]: "全サーバー",
   [PatchNoteTarget.CreativePro]: "CreativePro",
   [PatchNoteTarget.Frontier]: "Frontier",
   [PatchNoteTarget.Life]: "Life",
